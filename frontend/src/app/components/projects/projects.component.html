@@ -1,0 +1,149 @@
+<div class="projects-container">
+  <div class="header">
+    <div class="breadcrumb">
+      <button mat-button (click)="goToOrganizations()">
+        <mat-icon>business</mat-icon>
+        Organizations
+      </button>
+      <mat-icon>chevron_right</mat-icon>
+      <span *ngIf="currentOrganization">{{ currentOrganization.name }}</span>
+    </div>
+
+    <div class="header-actions">
+      <h1>RFP Projects</h1>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="createNewProject()"
+        [disabled]="!currentOrganization"
+      >
+        <mat-icon>add</mat-icon>
+        Create Project
+      </button>
+    </div>
+  </div>
+
+  <div class="loading" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+    <p>Loading projects...</p>
+  </div>
+
+  <div class="no-organization" *ngIf="!currentOrganization && !loading">
+    <mat-card class="info-card">
+      <mat-card-content>
+        <div class="info-content">
+          <mat-icon class="info-icon">info</mat-icon>
+          <h3>No Organization Selected</h3>
+          <p>Please select an organization to view and manage RFP projects.</p>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="goToOrganizations()"
+          >
+            Select Organization
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="projects-grid" *ngIf="!loading && currentOrganization">
+    <mat-card
+      *ngFor="let project of projects"
+      class="project-card"
+      (click)="openProject(project)"
+    >
+      <mat-card-header>
+        <div mat-card-avatar class="project-avatar">
+          <mat-icon>folder</mat-icon>
+        </div>
+        <mat-card-title>{{ project.name }}</mat-card-title>
+        <mat-card-subtitle>{{
+          project.description || "No description"
+        }}</mat-card-subtitle>
+
+        <div class="card-actions">
+          <button
+            mat-icon-button
+            (click)="editProject(project); $event.stopPropagation()"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            (click)="deleteProject(project); $event.stopPropagation()"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="project-stats" *ngIf="getProjectStats(project.id) as stats">
+          <div class="stat-item">
+            <span class="stat-label">Documents:</span>
+            <span class="stat-value">{{ stats.total_documents }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Questions:</span>
+            <span class="stat-value">{{ stats.total_questions }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Answered:</span>
+            <span class="stat-value">{{ stats.answered_questions }}</span>
+          </div>
+        </div>
+
+        <div class="progress-section">
+          <div class="progress-header">
+            <span class="progress-label">Completion</span>
+            <span class="progress-percentage"
+              >{{ getCompletionPercentage(project.id) }}%</span
+            >
+          </div>
+          <mat-progress-bar
+            mode="determinate"
+            [value]="getCompletionPercentage(project.id)"
+            [color]="getStatusColor(project.id)"
+          >
+          </mat-progress-bar>
+          <div class="status-chip">
+            <mat-chip [color]="getStatusColor(project.id)">
+              {{ getStatusText(project.id) }}
+            </mat-chip>
+          </div>
+        </div>
+      </mat-card-content>
+
+      <mat-card-footer>
+        <div class="footer-info">
+          <small>Created: {{ formatDate(project.created_at) }}</small>
+          <small *ngIf="getProjectStats(project.id)?.last_activity">
+            Last activity:
+            {{ formatDate(getProjectStats(project.id)!.last_activity) }}
+          </small>
+        </div>
+      </mat-card-footer>
+    </mat-card>
+
+    <mat-card *ngIf="projects.length === 0" class="empty-state">
+      <mat-card-content>
+        <div class="empty-content">
+          <mat-icon class="empty-icon">assignment</mat-icon>
+          <h3>No Projects Found</h3>
+          <p>
+            Create your first RFP project to start generating AI-powered
+            responses.
+          </p>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="createNewProject()"
+          >
+            Create Project
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

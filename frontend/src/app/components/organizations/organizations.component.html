@@ -1,0 +1,86 @@
+<div class="organizations-container">
+  <div class="header">
+    <h1>Organizations</h1>
+    <button mat-raised-button color="primary" (click)="createNewOrganization()">
+      <mat-icon>add</mat-icon>
+      Create Organization
+    </button>
+  </div>
+
+  <div class="loading" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+    <p>Loading organizations...</p>
+  </div>
+
+  <div class="organizations-grid" *ngIf="!loading">
+    <mat-card
+      *ngFor="let org of organizations"
+      class="organization-card"
+      (click)="selectOrganization(org)"
+    >
+      <mat-card-header>
+        <div mat-card-avatar class="organization-avatar">
+          {{ org.name.charAt(0).toUpperCase() }}
+        </div>
+        <mat-card-title>{{ org.name }}</mat-card-title>
+        <mat-card-subtitle>{{ org.slug }}</mat-card-subtitle>
+
+        <div class="card-actions">
+          <button
+            mat-icon-button
+            (click)="editOrganization(org); $event.stopPropagation()"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            (click)="deleteOrganization(org); $event.stopPropagation()"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p *ngIf="org.description">{{ org.description }}</p>
+        <p *ngIf="!org.description" class="no-description">
+          No description provided
+        </p>
+
+        <div class="org-status">
+          <mat-chip-set>
+            <mat-chip *ngIf="isLlamaCloudConnected(org)" color="primary">
+              <mat-icon>cloud</mat-icon>
+              LlamaCloud Connected
+            </mat-chip>
+            <mat-chip *ngIf="!isLlamaCloudConnected(org)" color="accent">
+              <mat-icon>cloud_off</mat-icon>
+              Not Connected
+            </mat-chip>
+          </mat-chip-set>
+        </div>
+      </mat-card-content>
+
+      <mat-card-footer>
+        <small>Created: {{ formatDate(org.created_at) }}</small>
+      </mat-card-footer>
+    </mat-card>
+
+    <mat-card *ngIf="organizations.length === 0" class="empty-state">
+      <mat-card-content>
+        <div class="empty-content">
+          <mat-icon class="empty-icon">business</mat-icon>
+          <h3>No Organizations Found</h3>
+          <p>Create your first organization to get started with AutoRFP.</p>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="createNewOrganization()"
+          >
+            Create Organization
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

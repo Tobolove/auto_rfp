@@ -1,0 +1,299 @@
+<div class="project-detail-container">
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Loading project details...</p>
+  </div>
+
+  <!-- Project Content -->
+  <div *ngIf="!loading && project" class="project-content">
+    <!-- Header -->
+    <div class="project-header">
+      <div class="header-left">
+        <button
+          mat-icon-button
+          (click)="goBackToProjects()"
+          class="back-button"
+        >
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <div class="project-info">
+          <h1>{{ project.name }}</h1>
+          <p *ngIf="project.description" class="project-description">
+            {{ project.description }}
+          </p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button mat-button (click)="editProject()">
+          <mat-icon>edit</mat-icon>
+          Edit
+        </button>
+        <button mat-button color="warn" (click)="deleteProject()">
+          <mat-icon>delete</mat-icon>
+          Delete
+        </button>
+      </div>
+    </div>
+
+    <!-- Project Summary Card -->
+    <mat-card class="summary-card">
+      <mat-card-content>
+        <div class="summary-metrics">
+          <div class="metric">
+            <mat-icon>quiz</mat-icon>
+            <div class="metric-content">
+              <span class="metric-label">Questions</span>
+              <span class="metric-value">
+                {{ stats?.answered_questions || 0 }}/{{
+                  stats?.total_questions || 0
+                }}
+              </span>
+            </div>
+            <mat-chip [color]="getStatusColor()">
+              {{ getCompletionPercentage() }}% complete
+            </mat-chip>
+          </div>
+
+          <div class="metric">
+            <mat-icon>folder</mat-icon>
+            <div class="metric-content">
+              <span class="metric-label">Documents</span>
+              <span class="metric-value">{{ documents.length }}</span>
+            </div>
+          </div>
+
+          <div class="metric">
+            <mat-icon>check_circle</mat-icon>
+            <div class="metric-content">
+              <span class="metric-label">Status</span>
+              <span class="metric-value">{{ getStatusText() }}</span>
+            </div>
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="progress-section">
+          <div class="progress-header">
+            <span>Overall Progress</span>
+            <span>{{ getCompletionPercentage() }}%</span>
+          </div>
+          <mat-progress-bar
+            mode="determinate"
+            [value]="getCompletionPercentage()"
+            [color]="getStatusColor()"
+          ></mat-progress-bar>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="project-meta">
+          <div class="meta-item">
+            <mat-icon>schedule</mat-icon>
+            <span>Created: {{ formatDate(project.created_at) }}</span>
+          </div>
+          <div class="meta-item">
+            <mat-icon>update</mat-icon>
+            <span>Updated: {{ formatDate(project.updated_at) }}</span>
+          </div>
+          <div class="meta-item">
+            <mat-icon>badge</mat-icon>
+            <span>ID: {{ project.id.substring(0, 8) }}...</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Tabs -->
+    <mat-tab-group [(selectedIndex)]="selectedTabIndex" class="project-tabs">
+      <!-- Overview Tab -->
+      <mat-tab label="Overview">
+        <div class="tab-content">
+          <div class="overview-grid">
+            <!-- Quick Actions -->
+            <mat-card class="action-card">
+              <mat-card-header>
+                <mat-card-title>Quick Actions</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="action-buttons">
+                  <button
+                    mat-raised-button
+                    color="primary"
+                    (click)="uploadDocument()"
+                  >
+                    <mat-icon>upload_file</mat-icon>
+                    Upload Document
+                  </button>
+                  <button mat-raised-button (click)="viewQuestions()">
+                    <mat-icon>quiz</mat-icon>
+                    View Questions
+                  </button>
+                </div>
+              </mat-card-content>
+            </mat-card>
+
+            <!-- Recent Activity -->
+            <mat-card class="activity-card">
+              <mat-card-header>
+                <mat-card-title>Recent Activity</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="activity-list">
+                  <div class="activity-item">
+                    <mat-icon>description</mat-icon>
+                    <div class="activity-content">
+                      <span>Project created</span>
+                      <small>{{ formatDate(project.created_at) }}</small>
+                    </div>
+                  </div>
+                  <div *ngIf="stats?.last_activity" class="activity-item">
+                    <mat-icon>update</mat-icon>
+                    <div class="activity-content">
+                      <span>Last activity</span>
+                      <small>{{ formatDate(stats?.last_activity) }}</small>
+                    </div>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </mat-tab>
+
+      <!-- Documents Tab -->
+      <mat-tab label="Documents ({{ documents.length }})">
+        <div class="tab-content">
+          <div class="documents-header">
+            <h3>Project Documents</h3>
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="uploadDocument()"
+            >
+              <mat-icon>add</mat-icon>
+              Upload Document
+            </button>
+          </div>
+
+          <div *ngIf="documents.length === 0" class="empty-state">
+            <mat-icon class="empty-icon">description</mat-icon>
+            <h4>No Documents</h4>
+            <p>Upload RFP documents to start extracting questions.</p>
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="uploadDocument()"
+            >
+              Upload Document
+            </button>
+          </div>
+
+          <div *ngIf="documents.length > 0" class="documents-grid">
+            <mat-card *ngFor="let doc of documents" class="document-card">
+              <mat-card-content>
+                <div class="document-info">
+                  <mat-icon [class]="'file-icon ' + doc.file_type">
+                    {{ getDocumentIcon(doc.file_type) }}
+                  </mat-icon>
+                  <div class="document-details">
+                    <h4>{{ doc.name }}</h4>
+                    <p class="document-meta">
+                      {{ formatFileSize(doc.file_size) }} •
+                      {{ formatDate(doc.uploaded_at) }}
+                    </p>
+                    <mat-chip
+                      [color]="
+                        doc.status === 'processed' ? 'primary' : 'accent'
+                      "
+                    >
+                      {{ doc.status }}
+                    </mat-chip>
+                  </div>
+                </div>
+                <mat-card-actions *ngIf="doc.status === 'processed'">
+                  <button 
+                    mat-raised-button 
+                    color="primary" 
+                    (click)="extractQuestions(doc.id)"
+                    [disabled]="extractingQuestions"
+                  >
+                    <mat-spinner 
+                      *ngIf="extractingQuestions" 
+                      diameter="16" 
+                      class="inline-spinner">
+                    </mat-spinner>
+                    <mat-icon *ngIf="!extractingQuestions">quiz</mat-icon>
+                    {{ extractingQuestions ? 'Extracting...' : 'Extract Questions' }}
+                  </button>
+                </mat-card-actions>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </mat-tab>
+
+      <!-- Questions Tab -->
+      <mat-tab label="Questions ({{ questions.length }})">
+        <div class="tab-content">
+          <div class="questions-header">
+            <h3>Extracted Questions</h3>
+            <button mat-raised-button (click)="viewQuestions()">
+              <mat-icon>open_in_new</mat-icon>
+              Open Questions View
+            </button>
+          </div>
+
+          <div *ngIf="questions.length === 0" class="empty-state">
+            <mat-icon class="empty-icon">quiz</mat-icon>
+            <h4>No Questions</h4>
+            <p>Upload and process documents to extract RFP questions.</p>
+          </div>
+
+          <div *ngIf="questions.length > 0" class="questions-preview">
+            <mat-card
+              *ngFor="let question of questions.slice(0, 5)"
+              class="question-card"
+            >
+              <mat-card-content>
+                <div class="question-info">
+                  <div class="question-header">
+                    <mat-chip size="small" color="accent">{{
+                      question.topic
+                    }}</mat-chip>
+                    <span *ngIf="question.section_title" class="section-title">
+                      {{ question.section_title }}
+                    </span>
+                  </div>
+                  <p class="question-text">{{ question.text }}</p>
+                  <small class="question-ref" *ngIf="question.reference_id">
+                    Ref: {{ question.reference_id }}
+                  </small>
+                </div>
+              </mat-card-content>
+            </mat-card>
+
+            <div *ngIf="questions.length > 5" class="show-more">
+              <button mat-button (click)="viewQuestions()">
+                View all {{ questions.length }} questions
+                <mat-icon>arrow_forward</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="!loading && !project" class="error-state">
+    <mat-icon class="error-icon">error</mat-icon>
+    <h3>Project Not Found</h3>
+    <p>The requested project could not be found.</p>
+    <button mat-raised-button color="primary" (click)="goBackToProjects()">
+      Back to Projects
+    </button>
+  </div>
+</div>

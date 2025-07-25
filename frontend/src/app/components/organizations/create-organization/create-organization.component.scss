@@ -1,0 +1,61 @@
+.create-organization-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem;
+  min-height: calc(100vh - 64px); // Account for toolbar height
+}
+
+.form-card {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+mat-card-header {
+  margin-bottom: 1rem;
+}
+
+mat-card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+mat-card-actions {
+  padding: 1rem 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .create-organization-container {
+    padding: 1rem;
+  }
+
+  .form-card {
+    max-width: 100%;
+  }
+}

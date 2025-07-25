@@ -1,0 +1,34 @@
+<!-- AutoRFP Application Layout -->
+<div class="app-container">
+  <!-- Navigation Bar -->
+  <mat-toolbar color="primary" class="app-toolbar">
+    <mat-toolbar-row>
+      <span class="app-title">
+        <mat-icon>business</mat-icon>
+        AutoRFP
+      </span>
+
+      <span class="spacer"></span>
+
+      <nav class="nav-links">
+        <a mat-button routerLink="/organizations" routerLinkActive="active">
+          <mat-icon>business</mat-icon>
+          Organizations
+        </a>
+        <a mat-button routerLink="/projects" routerLinkActive="active">
+          <mat-icon>folder</mat-icon>
+          Projects
+        </a>
+        <a mat-button routerLink="/organizations/1/reference-documents" routerLinkActive="active" class="reference-link">
+          <mat-icon>library_add</mat-icon>
+          Add Reference
+        </a>
+      </nav>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

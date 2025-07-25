@@ -1,0 +1,382 @@
+.project-detail-container {
+  min-height: calc(100vh - 64px);
+  background-color: #fafafa;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px;
+  
+  mat-spinner {
+    margin-bottom: 16px;
+  }
+  
+  p {
+    color: #666;
+    margin: 0;
+  }
+}
+
+.project-content {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  
+  .header-left {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    flex: 1;
+    
+    .back-button {
+      margin-top: 4px;
+    }
+    
+    .project-info {
+      h1 {
+        margin: 0 0 8px 0;
+        font-size: 28px;
+        font-weight: 500;
+        color: #333;
+      }
+      
+      .project-description {
+        margin: 0;
+        color: #666;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+    }
+  }
+  
+  .header-actions {
+    display: flex;
+    gap: 8px;
+  }
+}
+
+.summary-card {
+  margin-bottom: 24px;
+  
+  .summary-metrics {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    
+    .metric {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      
+      mat-icon {
+        color: #1976d2;
+        font-size: 20px;
+      }
+      
+      .metric-content {
+        display: flex;
+        flex-direction: column;
+        
+        .metric-label {
+          font-size: 12px;
+          color: #666;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+        
+        .metric-value {
+          font-size: 18px;
+          font-weight: 500;
+          color: #333;
+        }
+      }
+    }
+  }
+  
+  .progress-section {
+    margin: 20px 0;
+    
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: #666;
+    }
+  }
+  
+  .project-meta {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      color: #666;
+      
+      mat-icon {
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+}
+
+.project-tabs {
+  .tab-content {
+    padding: 24px 0;
+  }
+}
+
+.overview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  
+  .action-card,
+  .activity-card {
+    height: fit-content;
+  }
+  
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    
+    button {
+      justify-content: flex-start;
+    }
+  }
+  
+  .activity-list {
+    .activity-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid #f0f0f0;
+      
+      &:last-child {
+        border-bottom: none;
+      }
+      
+      mat-icon {
+        color: #666;
+        font-size: 18px;
+      }
+      
+      .activity-content {
+        display: flex;
+        flex-direction: column;
+        
+        span {
+          font-size: 14px;
+          color: #333;
+        }
+        
+        small {
+          font-size: 12px;
+          color: #999;
+        }
+      }
+    }
+  }
+}
+
+.documents-header,
+.questions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  
+  h3 {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 64px 24px;
+  
+  .empty-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    color: #ccc;
+    margin-bottom: 16px;
+  }
+  
+  h4 {
+    margin: 16px 0 8px 0;
+    color: #333;
+  }
+  
+  p {
+    color: #666;
+    margin-bottom: 24px;
+  }
+}
+
+.documents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  
+  .document-card {
+    .document-info {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      
+      .file-icon {
+        font-size: 32px;
+        width: 32px;
+        height: 32px;
+        color: #1976d2;
+      }
+      
+      .document-details {
+        flex: 1;
+        
+        h4 {
+          margin: 0 0 4px 0;
+          font-size: 16px;
+          color: #333;
+        }
+        
+        .document-meta {
+          margin: 0 0 8px 0;
+          font-size: 12px;
+          color: #666;
+        }
+      }
+    }
+  }
+}
+
+.questions-preview {
+  .question-card {
+    margin-bottom: 16px;
+    
+    .question-info {
+      .question-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 8px;
+        
+        .section-title {
+          font-size: 12px;
+          color: #666;
+        }
+      }
+      
+      .question-text {
+        margin: 0 0 8px 0;
+        font-size: 14px;
+        line-height: 1.5;
+        color: #333;
+      }
+      
+      .question-ref {
+        font-size: 11px;
+        color: #999;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+    }
+  }
+  
+  .show-more {
+    text-align: center;
+    padding: 16px;
+  }
+}
+
+.error-state {
+  text-align: center;
+  padding: 64px 24px;
+  
+  .error-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    color: #f44336;
+    margin-bottom: 16px;
+  }
+  
+  h3 {
+    margin: 16px 0 8px 0;
+    color: #333;
+  }
+  
+  p {
+    color: #666;
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .project-content {
+    padding: 16px;
+  }
+  
+  .project-header {
+    flex-direction: column;
+    gap: 16px;
+    
+    .header-left {
+      .project-info h1 {
+        font-size: 24px;
+      }
+    }
+    
+    .header-actions {
+      align-self: flex-start;
+    }
+  }
+  
+  .summary-metrics {
+    flex-direction: column;
+    gap: 16px !important;
+  }
+  
+  .project-meta {
+    flex-direction: column;
+    gap: 12px !important;
+  }
+  
+  .overview-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .documents-header,
+  .questions-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .documents-grid {
+    grid-template-columns: 1fr;
+  }
+}

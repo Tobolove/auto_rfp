@@ -1,0 +1,122 @@
+/* AutoRFP Application Layout Styles */
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.app-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 20px;
+  font-weight: 500;
+
+  mat-icon {
+    font-size: 24px;
+    height: 24px;
+    width: 24px;
+  }
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.nav-links {
+  display: flex;
+  gap: 8px;
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    text-decoration: none;
+    color: inherit;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    &.active {
+      background-color: rgba(255, 255, 255, 0.2);
+      font-weight: 500;
+    }
+
+    mat-icon {
+      font-size: 18px;
+      height: 18px;
+      width: 18px;
+    }
+
+    &.reference-link {
+      background-color: rgba(76, 175, 80, 0.1);
+      color: white;
+      border: 1px solid rgba(76, 175, 80, 0.3);
+
+      &:hover {
+        background-color: rgba(76, 175, 80, 0.2);
+        color: white;
+      }
+
+      &.active {
+        background-color: rgba(76, 175, 80, 0.3);
+        color: white;
+      }
+    }
+  }
+}
+
+.main-content {
+  flex: 1;
+  background-color: #fafafa;
+  overflow-y: auto;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .app-title {
+    font-size: 18px;
+
+    mat-icon {
+      font-size: 20px;
+      height: 20px;
+      width: 20px;
+    }
+  }
+
+  .nav-links {
+    gap: 4px;
+
+    a {
+      padding: 6px 12px;
+      font-size: 14px;
+
+      mat-icon {
+        font-size: 16px;
+        height: 16px;
+        width: 16px;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .nav-links a {
+    span:not(.mat-icon) {
+      display: none; // Hide text, show only icons on very small screens
+    }
+  }
+}

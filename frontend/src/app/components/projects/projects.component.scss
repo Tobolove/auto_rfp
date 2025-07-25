@@ -1,0 +1,363 @@
+/* Projects Component Styles */
+
+.projects-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: calc(100vh - 64px);
+}
+
+.header {
+  margin-bottom: 32px;
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    color: #666;
+
+    button {
+      color: #1976d2;
+      text-decoration: none;
+      
+      &:hover {
+        background-color: rgba(25, 118, 210, 0.04);
+      }
+    }
+
+    mat-icon {
+      margin: 0 8px;
+      font-size: 18px;
+    }
+
+    span {
+      font-weight: 500;
+      color: #333;
+    }
+  }
+
+  .header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h1 {
+      margin: 0;
+      color: #333;
+      font-size: 28px;
+      font-weight: 400;
+    }
+  }
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px;
+
+  mat-spinner {
+    margin-bottom: 16px;
+  }
+
+  p {
+    color: #666;
+    margin: 0;
+  }
+}
+
+.no-organization, .info-card {
+  .info-content {
+    text-align: center;
+    padding: 48px 24px;
+
+    .info-icon {
+      font-size: 64px;
+      width: 64px;
+      height: 64px;
+      color: #1976d2;
+      margin-bottom: 16px;
+    }
+
+    h3 {
+      margin: 16px 0 8px 0;
+      color: #333;
+    }
+
+    p {
+      color: #666;
+      margin-bottom: 24px;
+    }
+  }
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 24px;
+}
+
+.project-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: #1976d2;
+  }
+
+  mat-card-header {
+    position: relative;
+
+    .project-avatar {
+      background: linear-gradient(45deg, #ff9800, #ffc107);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+
+      mat-icon {
+        font-size: 20px;
+      }
+    }
+
+    .card-actions {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+
+      button {
+        margin-left: 4px;
+      }
+    }
+  }
+
+  &:hover .card-actions {
+    opacity: 1;
+  }
+}
+
+.project-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+mat-card-content {
+  .project-stats {
+    display: flex;
+    justify-content: space-around;
+    margin: 16px 0;
+    padding: 12px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+
+      .stat-label {
+        font-size: 0.75rem;
+        color: #666;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .stat-value {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #1976d2;
+      }
+    }
+  }
+
+  .progress-section {
+    margin-top: 16px;
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+
+      .progress-label {
+        font-size: 0.875rem;
+        color: #666;
+        font-weight: 500;
+      }
+
+      .progress-percentage {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #1976d2;
+      }
+    }
+
+    mat-progress-bar {
+      height: 6px;
+      border-radius: 3px;
+      margin-bottom: 12px;
+    }
+
+    .status-chip {
+      display: flex;
+      justify-content: center;
+
+      mat-chip {
+        font-size: 0.75rem;
+        height: 24px;
+        line-height: 24px;
+      }
+    }
+  }
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+mat-card-footer {
+  .footer-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    small {
+      color: #666;
+      font-size: 0.75rem;
+    }
+  }
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+
+  .empty-content {
+    text-align: center;
+    padding: 48px 24px;
+
+    .empty-icon {
+      font-size: 64px;
+      width: 64px;
+      height: 64px;
+      color: #ccc;
+      margin-bottom: 16px;
+    }
+
+    h3 {
+      margin: 16px 0 8px 0;
+      color: #333;
+    }
+
+    p {
+      color: #666;
+      margin-bottom: 24px;
+    }
+  }
+}
+
+.organization-info {
+  background-color: #f8f9fa;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.organization-name {
+  font-size: 1.1em;
+  font-weight: 500;
+  color: #1976d2;
+}
+
+.project-metadata {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 0.9em;
+  color: #666;
+}
+
+/* Status chip colors */
+.status-chip {
+  &.active {
+    background-color: #4caf50 !important;
+    color: white !important;
+  }
+
+  &.draft {
+    background-color: #ff9800 !important;
+    color: white !important;
+  }
+
+  &.completed {
+    background-color: #2196f3 !important;
+    color: white !important;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .projects-container {
+    padding: 16px;
+  }
+
+  .header {
+    .breadcrumb {
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .header-actions {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+
+      h1 {
+        font-size: 24px;
+      }
+    }
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .project-card {
+    mat-card-content {
+      .project-stats {
+        flex-direction: column;
+        gap: 8px;
+
+        .stat-item {
+          flex-direction: row;
+          justify-content: space-between;
+          text-align: left;
+        }
+      }
+    }
+
+    mat-card-footer {
+      .footer-info {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  }
+}

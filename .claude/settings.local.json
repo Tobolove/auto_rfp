@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install)",
+      "Bash(ng build)",
+      "Bash(.start_backend.ps1)",
+      "Bash(npm start)",
+      "Bash(python:*)",
+      "Bash(curl:*)",
+      "Bash(set KMP_DUPLICATE_LIB_OK=TRUE)",
+      "Bash(taskkill:*)",
+      "Bash(sqlite3:*)",
+      "Bash(ls:*)",
+      "Bash(pip install:*)",
+      "Bash(mv:*)",
+      "Bash(find:*)",
+      "Bash(mkdir:*)"
+    ],
+    "deny": []
+  }
+}
